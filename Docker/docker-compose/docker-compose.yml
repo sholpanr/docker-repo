@@ -1,0 +1,39 @@
+version: '3'
+services: 
+  nginx: 
+    build: ../frontend
+    ports: 
+      - "80:80"
+    volumes: 
+      -  /Users/admin/Downloads/Docker/frontend:/index
+    depends_on:
+      postgres: 
+        condition: service_healthy
+ ################################
+
+  python:
+    build: ../backend
+    command: "python mycode.py"
+    ports:
+      - "4000:4000"
+    volumes: 
+      -  /Users/admin/Downloads/Docker/backend:/data
+    depends_on:
+      nginx: 
+        condition: service_healthy
+##############################################
+  postgres:
+    build: ../database
+    ports:
+      - "5432:5432"
+    volumes: 
+      -  /Users/admin/Downloads/Docker/database:/postgres
+    healthcheck: 
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+    environment:
+      POSTGRES_PASSWORD: 123
+    env_file:
+      - postgres.env
