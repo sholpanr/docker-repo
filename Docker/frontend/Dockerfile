@@ -7,8 +7,8 @@ VOLUME /index
 # RUN apk update && \
 #     apk add bash
 #RUN apk update && apk add nginx 
-# RUN apt install atop -y
-# RUN rm /usr/share/nginx/html/index.html
+RUN apt install atop -y
+RUN rm /usr/share/nginx/html/index.html
 # COPY index.html /usr/share/nginx/
 # COPY team1.png /usr/share/nginx/
 
@@ -26,17 +26,17 @@ VOLUME /index
 # #CMD while running container
 # #CMD can be overwritten by commands during the running stage
 # #ENTRYPOINT commands cannot be changed
-# ENV name=Aksholpan
+ENV name=Aksholpan
 
 #RUN while building stage
 #RUN chmod 777 docker-entrypoint.sh
 #ENTRYPOINT before CMD
 #ENTRYPOINT cannot be changed and running stage (sourcing and executing) (cmd of container without ch)
-#ENTRYPOINT ["/docker-entrypoint.d/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.d/docker-entrypoint.sh"]
 #RUN service nginx start
 # CMD ["service", "nginx", "start"]
 # CMD ["nginx", "-g", "daemon off;"]
-# EXPOSE 80 
+EXPOSE 80 
 # HEALTHCHECK --interval=10m --timeout=3s \
 #   CMD curl -f http://localhost/ || exit 1
 
