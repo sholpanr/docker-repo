@@ -1,4 +1,4 @@
-FROM nginx:1.21.2
+FROM nginx:1.25.4
 # RUN apt-get install -y --no-install-recommends nginx=1.21.2 
 # RUN ???start service
 # ENV NAME=Aksholpan
